@@ -1,48 +1,46 @@
 import { useEffect, useRef } from "react";
 import "./Toast.css";
 
-export default function ToastContainer({ toasts, removeToast }) {
+export function ToastContainer({ toasts, removeToast }) {
     return (
         <div className="toast-container">
-            {toasts.map((toast) => (
-                <ToastItem
-                    key={toast.id}
-                    toast={toast}
-                    removeToast={removeToast}
-                />
+            {toasts.map((t) => (
+                <ToastItem key={t.id} toast={t} removeToast={removeToast} />
             ))}
         </div>
     );
 }
 
 function ToastItem({ toast, removeToast }) {
-    const timerRef = useRef(null);
-    const delay = 5000;
+    const timer = useRef(null);
+    const hover = useRef(false);
 
     useEffect(() => {
         startTimer();
-        return () => clearTimeout(timerRef.current);
+        return () => clearTimeout(timer.current);
     }, []);
 
     const startTimer = () => {
-        timerRef.current = setTimeout(() => {
-            removeToast(toast.id);
-        }, delay);
+        timer.current = setTimeout(() => {
+            if (!hover.current) removeToast(toast.id);
+        }, 5000);
     };
 
-    const pauseTimer = () => {
-        clearTimeout(timerRef.current);
+    const stopTimer = () => {
+        hover.current = true;
+        clearTimeout(timer.current);
     };
 
-    const resumeTimer = () => {
+    const resume = () => {
+        hover.current = false;
         startTimer();
     };
 
     return (
         <div
-            className={`toast ${toast.type}`}
-            onMouseEnter={pauseTimer}
-            onMouseLeave={resumeTimer}
+            className={`toast-item ${toast.type}`}
+            onMouseEnter={stopTimer}
+            onMouseLeave={resume}
         >
             {toast.message}
         </div>

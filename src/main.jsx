@@ -8,11 +8,9 @@ import "./assets/styles/reset.css";
 import "./assets/styles/global.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-    <React.StrictMode>
-        <BrowserRouter>
-            <ToastProvider>
-                <App />
-            </ToastProvider>
-        </BrowserRouter>
-    </React.StrictMode>
+    <BrowserRouter>
+        <ToastProvider>
+            <App />
+        </ToastProvider>
+    </BrowserRouter>
 );

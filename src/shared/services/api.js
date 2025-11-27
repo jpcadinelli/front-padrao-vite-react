@@ -1,5 +1,5 @@
 import axios from "axios";
-import { toastContextRef } from "./../components/Toast/toastRef.js";
+import { toast } from "./../components/Toast/toastRef.js";
 
 const api = axios.create({
     baseURL: "http://localhost:8080",
@@ -15,14 +15,11 @@ api.interceptors.request.use(
 
 api.interceptors.response.use(
     (response) => {
-        toastContextRef.current?.showToast("Operação realizada com sucesso!", "success");
+        toast.success("Operação realizada com sucesso!");
         return response;
     },
     (error) => {
-        toastContextRef.current?.showToast(
-            error.response?.data?.message || "Erro: " + error.status,
-            "error"
-        );
+        toast.error(error.response?.data?.message ?? `Erro: ${error.status}`);
         return Promise.reject(error);
     }
 );

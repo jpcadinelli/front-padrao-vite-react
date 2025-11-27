@@ -1,34 +1,31 @@
-import { createContext, useContext, useState, useCallback, useEffect } from "react";
-import ToastContainer from "./ToastContainer";
-import { toastContextRef } from "./toastRef";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
+import { toastRef } from "./toastRef";
+import {ToastContainer} from "./ToastContainer.jsx";
 
-export const ToastContext = createContext();
+const ToastContext = createContext(undefined);
 
 export function ToastProvider({ children }) {
     const [toasts, setToasts] = useState([]);
 
-    const showToast = useCallback((message, type = "success") => {
-        const id = Math.random().toString(36).substring(2, 9);
-
-        setToasts((prev) => [...prev, { id, message, type }]);
+    const addToast = (toast) => {
+        const id = Date.now();
+        setToasts((prev) => [...prev, { id, ...toast }]);
 
         return id;
-    }, []);
+    };
 
-    const removeToast = useCallback((id) => {
+    const removeToast = (id) => {
         setToasts((prev) => prev.filter((t) => t.id !== id));
-    }, []);
+    };
 
     useEffect(() => {
-        toastContextRef.current = { showToast };
-    }, [showToast]);
+        toastRef.current = { addToast };
+    }, []);
 
     return (
-        <ToastContext.Provider value={{ showToast }}>
+        <ToastContext.Provider value={{ addToast }}>
             {children}
             <ToastContainer toasts={toasts} removeToast={removeToast} />
         </ToastContext.Provider>
     );
 }
-
-export const useToast = () => useContext(ToastContext);

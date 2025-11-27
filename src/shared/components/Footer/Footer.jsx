@@ -4,9 +4,9 @@ export default function Footer() {
     return (
         <footer className="footer">
             <div className="footer-content">
-                <p>© {new Date().getFullYear()} - Meu Projeto Base</p>
+                <p className="footer-text">© {new Date().getFullYear()} - Meu Projeto Base. Desenvolvido por:</p>
                 <p className="footer-links">
-                    <a href="https://github.com/jpcadinelli">Github - @jpcadinelli</a>
+                    <a href="https://github.com/jpcadinelli">@jpcadinelli</a>
                 </p>
             </div>
         </footer>

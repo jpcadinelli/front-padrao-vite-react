@@ -7,9 +7,16 @@
 }
 
 .footer-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
     max-width: 1100px;
     margin: 0 auto;
     text-align: center;
+}
+
+.footer-text {
+    color: #fff;
 }
 
 .footer-links a {

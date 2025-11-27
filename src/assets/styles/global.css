@@ -1,4 +1,4 @@
-/* === Global Style Pattern (para projetos base) === */
+/* === Global Style Pattern === */
 
 /* ----------------------------------------------------
    TIPOGRAFIA
@@ -128,7 +128,7 @@ label {
 }
 
 /* ----------------------------------------------------
-   CARDS (muito usados em CRUDs)
+   CARDS
 ---------------------------------------------------- */
 
 .card {
@@ -140,7 +140,7 @@ label {
 }
 
 /* ----------------------------------------------------
-   TABELAS (ótimas para CRUD)
+   TABELAS
 ---------------------------------------------------- */
 
 table {
@@ -180,3 +180,13 @@ th {
 .flex { display: flex; }
 .flex-between { display: flex; justify-content: space-between; }
 .flex-center { display: flex; justify-content: center; align-items: center; }
+
+.layout {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-content {
+    flex: 1;
+}

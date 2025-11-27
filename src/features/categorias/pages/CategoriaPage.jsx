@@ -18,7 +18,7 @@ export default function CategoriasPage() {
     const excluir = (id) => {
         if (!confirm("Deseja realmente excluir esta categoria?")) return;
 
-        categoriasService.excluir(id).then(() => {
+        categoriasService.deletar(id).then(() => {
             carregar();
         });
     };

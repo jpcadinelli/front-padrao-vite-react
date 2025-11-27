@@ -1,4 +1,5 @@
 import axios from "axios";
+import { toastContextRef } from "./../components/Toast/toastRef.js";
 
 const api = axios.create({
     baseURL: "http://localhost:8080",
@@ -13,9 +14,15 @@ api.interceptors.request.use(
 );
 
 api.interceptors.response.use(
-    (response) => response.data,
+    (response) => {
+        toastContextRef.current?.showToast("Operação realizada com sucesso!", "success");
+        return response;
+    },
     (error) => {
-        console.error("Erro na API:", error);
+        toastContextRef.current?.showToast(
+            error.response?.data?.message || "Erro: " + error.status,
+            "error"
+        );
         return Promise.reject(error);
     }
 );

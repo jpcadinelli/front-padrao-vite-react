@@ -36,11 +36,18 @@ function ToastItem({ toast, removeToast }) {
         startTimer();
     };
 
+    const handleClick = (e) => {
+        e.stopPropagation();
+        clearTimeout(timer.current);
+        removeToast(toast.id);
+    };
+
     return (
         <div
             className={`toast-item ${toast.type}`}
             onMouseEnter={stopTimer}
             onMouseLeave={resume}
+            onClick={handleClick}
         >
             {toast.message}
         </div>
